@@ -23,6 +23,15 @@ func TestAppend(t *testing.T) {
 	}
 }
 
+func TestAppendLeft(t *testing.T) {
+	for _, tc := range TestCasesAppendLeft {
+		actual := tc.actual()
+		if !actual.Equals(&tc.expected) {
+			t.Errorf(tc.msg, actual, tc.expected)
+		}
+	}
+}
+
 func TestPop(t *testing.T) {
 	// Main test cases
 	for _, tc := range TestCasesPop {

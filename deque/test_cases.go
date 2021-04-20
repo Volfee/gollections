@@ -71,6 +71,30 @@ var TestCasesAppend = []TestCaseAppend{
 	},
 }
 
+var TestCasesAppendLeft = []TestCaseAppend{
+	{
+		actual: func() Deque {
+			d := New()
+			d.AppendLeft(1)
+			return d
+		},
+		expected: FromSlice([]int{1}),
+		msg:      "adding one element to deque. Got: %v, Expected: %v",
+	},
+	{
+		actual: func() Deque {
+			d := New()
+			d.AppendLeft(1)
+			d.AppendLeft(3)
+			d.AppendLeft(5)
+			d.AppendLeft(19)
+			return d
+		},
+		expected: FromSlice([]int{19, 5, 3, 1}),
+		msg:      "adding multiple elements to deque. Got: %v, Expected: %v",
+	},
+}
+
 type TestCasePop struct {
 	actual         func() (Deque, int)
 	expectedDeque  Deque

@@ -22,7 +22,7 @@ func FromSlice(slice []int) Deque {
 	return deq
 }
 
-// Append add element to the end of the list.
+// Append adds element to the end of the deque.
 func (d *Deque) Append(elem int) {
 	newNode := IntNode{value: elem, next: d.sentinel, prev: d.sentinel.prev}
 	d.sentinel.prev.next = &newNode
@@ -30,8 +30,11 @@ func (d *Deque) Append(elem int) {
 	d.length += 1
 }
 
+// AppendLeft adds element to the front of the deque.
 func (d *Deque) AppendLeft(elem int) {
-
+	newNode := IntNode{value: elem, next: d.sentinel.next, prev: d.sentinel}
+	d.sentinel.next.prev = &newNode
+	d.sentinel.next = &newNode
 	d.length += 1
 }
 
