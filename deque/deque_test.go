@@ -1,6 +1,10 @@
 package deque
 
-import "testing"
+import (
+	"testing"
+
+	"github.com/stretchr/testify/assert"
+)
 
 func TestEquals(t *testing.T) {
 	for _, tc := range TestCasesEquals {
@@ -17,4 +21,21 @@ func TestAppend(t *testing.T) {
 			t.Errorf(tc.msg)
 		}
 	}
+}
+
+func TestPop(t *testing.T) {
+	// Main test cases
+	for _, tc := range TestCasesAppend {
+		actual := tc.actual()
+		if !actual.Equals(&tc.expected) {
+			t.Errorf(tc.msg)
+		}
+	}
+
+	// Popping from empty list
+	poppingEmpty := func() {
+		d := FromSlice([]int{})
+		d.Pop()
+	}
+	assert.Panics(t, poppingEmpty, "popping from empty deque")
 }

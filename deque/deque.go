@@ -7,10 +7,10 @@ type Deque struct {
 
 // New initializes new deque.
 func New() Deque {
-	sentinel := IntNode{0, nil, nil}
-	sentinel.prev = &sentinel
-	sentinel.next = &sentinel
-	return Deque{&sentinel, 0}
+	sentinel := &IntNode{0, nil, nil}
+	sentinel.prev = sentinel
+	sentinel.next = sentinel
+	return Deque{sentinel, 0}
 }
 
 // FromSlice initilizes new deque and populates it with elements from slice.
@@ -36,13 +36,25 @@ func (d *Deque) AppendLeft(elem int) {
 }
 
 func (d *Deque) Pop() int {
+	if d.Empty() {
+		panic("popping from empty list")
+	}
+	value := d.sentinel.prev.value
+	d.sentinel.prev.prev.next = d.sentinel
+	d.sentinel.prev = d.sentinel.prev.prev
 	d.length -= 1
-	return 0
+	return value
 }
 
 func (d *Deque) PopLeft() int {
+	if d.Empty() {
+		panic("popping from empty list")
+	}
+	value := d.sentinel.next.value
+	d.sentinel.next.next.prev = d.sentinel
+	d.sentinel.next = d.sentinel.next.next
 	d.length -= 1
-	return 0
+	return value
 }
 
 // Last return value of the first element in deque.
@@ -58,6 +70,10 @@ func (d *Deque) Last() int {
 // Length returns number of elements in deque.
 func (d *Deque) Length() int {
 	return d.length
+}
+
+func (d *Deque) Empty() bool {
+	return d.length == 0
 }
 
 func (d *Deque) String() {
