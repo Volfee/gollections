@@ -1,5 +1,10 @@
 package deque
 
+import (
+	"strconv"
+	"strings"
+)
+
 type Deque struct {
 	sentinel *IntNode
 	length   int
@@ -79,8 +84,18 @@ func (d *Deque) Empty() bool {
 	return d.length == 0
 }
 
-func (d *Deque) String() {
-
+//
+func (d *Deque) String() string {
+	var b strings.Builder
+	curr := d.sentinel.next
+	b.WriteString("Deque{")
+	for i := 0; i < d.Length(); i++ {
+		b.WriteString(strconv.Itoa(curr.value))
+		b.WriteString(",")
+		curr = curr.next
+	}
+	b.WriteString("}")
+	return b.String()
 }
 
 // Equals checks if both deques contain same elements in the same order.

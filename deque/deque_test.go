@@ -65,3 +65,15 @@ func TestPopLeft(t *testing.T) {
 	}
 	assert.Panics(t, poppingEmpty, "popping from empty deque")
 }
+
+func TestString(t *testing.T) {
+	d := New()
+	if d.String() != "Deque{}" {
+		t.Errorf("empty deque; got: %v", d.String())
+	}
+
+	d = FromSlice([]int{1, 2, 7, 4})
+	if d.String() != "Deque{1,2,7,4,}" {
+		t.Errorf("4 element deque; got: %v", d.String())
+	}
+}
