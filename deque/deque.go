@@ -1,3 +1,5 @@
+// Package deque defines deque type declares most common methods to interact
+// with deque.
 package deque
 
 import (
@@ -5,12 +7,16 @@ import (
 	"strings"
 )
 
+// Deque is implemented as circular doubly linked list with sentinel node.
+// This allows for O(1) non-amortized add/remove operations for both ends
+// of the structure. This makes it a perfect implementation of queue data
+// structure.
 type Deque struct {
 	sentinel *IntNode
 	length   int
 }
 
-// New initializes new deque.
+// Constructor for new empty deque.
 func New() Deque {
 	sentinel := &IntNode{0, nil, nil}
 	sentinel.prev = sentinel
@@ -18,7 +24,7 @@ func New() Deque {
 	return Deque{sentinel, 0}
 }
 
-// FromSlice initilizes new deque and populates it with elements from slice.
+// Constructor from new empty deque populated with elements from slice.
 func FromSlice(slice []int) Deque {
 	deq := New()
 	for _, val := range slice {
@@ -43,6 +49,7 @@ func (d *Deque) AppendLeft(elem int) {
 	d.length += 1
 }
 
+// Pop removes and returns last element in deque.
 func (d *Deque) Pop() int {
 	if d.Empty() {
 		panic("popping from empty list")
@@ -54,6 +61,7 @@ func (d *Deque) Pop() int {
 	return value
 }
 
+// Pop removes and returns first element in deque.
 func (d *Deque) PopLeft() int {
 	if d.Empty() {
 		panic("popping from empty list")
@@ -80,11 +88,12 @@ func (d *Deque) Length() int {
 	return d.length
 }
 
+// Empty checks if there are any elements in deque.
 func (d *Deque) Empty() bool {
 	return d.length == 0
 }
 
-//
+// String outputs string representation of deque.
 func (d *Deque) String() string {
 	var b strings.Builder
 	curr := d.sentinel.next
