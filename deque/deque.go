@@ -1,5 +1,5 @@
-// Package deque defines deque type declares most common methods to interact
-// with deque.
+// Package deque implements deque type and common methods to interact with
+// deque.
 package deque
 
 import (
