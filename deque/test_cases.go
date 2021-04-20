@@ -99,4 +99,49 @@ var TestCasesPop = []TestCasePop{
 		expectedPopped: 3,
 		msg:            "popping from deque with 3 elements",
 	},
+	{
+		actual: func() (Deque, int) {
+			d := FromSlice([]int{1, 2, 3})
+			d.Pop()
+			val := d.Pop()
+			return d, val
+		},
+		expectedDeque:  FromSlice([]int{1}),
+		expectedPopped: 2,
+		msg:            "popping twice from deque with 3 elements",
+	},
+}
+
+var TestCasesPopLeft = []TestCasePop{
+	{
+		actual: func() (Deque, int) {
+			d := FromSlice([]int{1})
+			val := d.PopLeft()
+			return d, val
+		},
+		expectedDeque:  New(),
+		expectedPopped: 1,
+		msg:            "popping from deque with 1 element",
+	},
+	{
+		actual: func() (Deque, int) {
+			d := FromSlice([]int{1, 2, 3})
+			val := d.PopLeft()
+			return d, val
+		},
+		expectedDeque:  FromSlice([]int{2, 3}),
+		expectedPopped: 1,
+		msg:            "popping from deque with 3 elements",
+	},
+	{
+		actual: func() (Deque, int) {
+			d := FromSlice([]int{1, 2, 3})
+			d.PopLeft()
+			val := d.PopLeft()
+			return d, val
+		},
+		expectedDeque:  FromSlice([]int{3}),
+		expectedPopped: 2,
+		msg:            "popping twice from deque with 3 elements",
+	},
 }
